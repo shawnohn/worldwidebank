@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const mongoose = require('mongoose');
@@ -22,10 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // mongoose connection
 const connect = mongoose
-  .connect(
-    'mongodb+srv://team-kiwi-user:hatchways-team-kiwi@team-kiwi-cluster-yv3im.mongodb.net/hatchways?retryWrites=true&w=majority',
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.DATABASE_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 

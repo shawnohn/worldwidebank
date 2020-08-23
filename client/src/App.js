@@ -1,25 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import AccountInfo from './components/AccountInfo';
 import './App.css';
 
 function App() {
+  const [inputs, setInputs] = useState({
+    customerID: 'test',
+    accountNumber: 'test',
+  });
+  const [accountInfo, setInfo] = useState({
+    customerName: '',
+    balance: 0,
+  });
+
+  const { customerID, accountNumber } = inputs;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const getInfo = () => {
+    const user = {
+      customerName: 'shawn',
+      balance: 0,
+    };
+    setInfo(user);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <input name="customerID" placeholder="Customer ID" onChange={onChange} value={customerID} />
+        <input
+          name="accountNumber"
+          placeholder="Account Number"
+          onChange={onChange}
+          value={accountNumber}
+        />
+        <button onClick={getInfo}>Get Account Info</button>
+      </div>
+      <AccountInfo accountInfo={accountInfo} />
+    </>
   );
 }
 
