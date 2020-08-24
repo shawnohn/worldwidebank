@@ -19,7 +19,13 @@ router.get('/:id', (req, res) => {
     if (err) {
       res.status(404).send('No accounts were found!');
     } else {
-      res.status(200).send(info);
+      res.status(200).send(
+        info.map((account) => ({
+          customerName: account.customerName,
+          accountNumber: account.accountNumber,
+          balance: account.balance,
+        }))
+      );
     }
   });
 });

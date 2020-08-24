@@ -9,7 +9,7 @@ function App() {
   const [amount, setAmount] = useState(0);
   const [accountTo, setTo] = useState('');
   const [amountTransfer, setTransfer] = useState(0);
-  const [accountInfo, setInfo] = useState(null);
+  const [output, setOutput] = useState('');
   const [currencyGroup, setCurrency] = useState([
     {
       tag: 'CAD',
@@ -58,10 +58,7 @@ function App() {
   };
 
   const getInfo = () => {
-    axios.get(`/api/account/${customerID}`).then(({ data }) => {
-      console.log(data);
-      setInfo(data);
-    });
+    const data = axios.get(`/api/account/${customerID}`).then(({ data }) => {});
   };
 
   const deposit = () => {
@@ -158,9 +155,8 @@ function App() {
         <button onClick={transfer}>Transfer</button>
       </div>
       <div>
-        <label>Result: </label>
+        <label>Result: {output}</label>
       </div>
-      <AccountInfo accountInfo={accountInfo} />
     </>
   );
 }
